@@ -2,6 +2,9 @@ class Direction:
     RIGHT = "R"
     LEFT = "L"
 
+    @classmethod
+    def available_directions(cls):
+        return [cls.RIGHT, cls.LEFT]
 
 EMPTY_MARKER = 0
 

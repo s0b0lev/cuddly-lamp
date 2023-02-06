@@ -5,21 +5,21 @@ import game.constants as game_constants
 import game.services.board as board_service
 
 
-def test_game_init() -> None:
+def test_board_init() -> None:
     """
-    Test if game is initialized.
+    Test if board is initialized.
     """
-    game = board_service.BoardService()
-    assert game.initialize() == [[0] * 7] * 7
+    board = board_service.BoardService()
+    assert board.initialize() == [[0] * 7] * 7
 
 
-def test_game_mark() -> None:
+def test_board_mark() -> None:
     """
     Test if marker is placed in the row.
     """
-    game = board_service.BoardService()
-    game.mark(row_index=2, marker=1, direction=game_constants.Direction.LEFT)
-    assert game.board[2][0] == 1
+    board = board_service.BoardService()
+    board.mark(row_index=2, marker=1, direction=game_constants.Direction.LEFT)
+    assert board.board[2][0] == 1
 
 
 @pytest.mark.parametrize(
@@ -132,7 +132,7 @@ def test_game_mark() -> None:
         ),
     ],
 )
-def test_game_mark_direction_left(
+def test_board_mark_direction_left(
     row_state: typing.List[int],
     marker: int,
     direction: int,
@@ -143,16 +143,16 @@ def test_game_mark_direction_left(
     Test marking a row in a given direction with a given marker.
     This test is parametrized to test all possible directions.
     """
-    game = board_service.BoardService()
-    updated_row, updated = game.mark_row(row_state, marker, direction)
+    board = board_service.BoardService()
+    updated_row, updated = board.mark_row(row_state, marker, direction)
     assert updated_row == expected_state
     assert updated == should_update
 
 
-def test_game_mark_direction_invalid() -> None:
+def test_board_mark_direction_invalid() -> None:
     """
     Test marking a row by invalid index.
     """
-    game = board_service.BoardService()
+    board = board_service.BoardService()
     with pytest.raises(ValueError):
-        game.mark(row_index=7, marker=2, direction=game_constants.Direction.LEFT)
+        board.mark(row_index=7, marker=2, direction=game_constants.Direction.LEFT)
