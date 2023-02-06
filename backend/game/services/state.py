@@ -54,7 +54,7 @@ class StateService:
 
         return game_constants.EMPTY_MARKER, False
 
-    def test_has_winner_vertical(self) -> bool:
+    def has_winner_vertical(self) -> bool:
         """
         Check if there is a winner in a vertical row.
         """
