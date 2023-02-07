@@ -1,8 +1,10 @@
 import typing
+
 import pytest
-import game.constants as game_constants
-import game.services.board as board_service
-import game.services.state as state_service
+
+import backend.game.constants as game_constants
+import backend.game.services.board as board_service
+import backend.game.services.state as state_service
 
 
 def test_game_state_has_place() -> None:

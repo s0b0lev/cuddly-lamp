@@ -1,5 +1,6 @@
 import typing
-import game.constants as game_constants
+
+import backend.game.constants as game_constants
 
 
 class StateService:

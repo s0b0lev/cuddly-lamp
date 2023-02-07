@@ -1,8 +1,9 @@
 import typing
+
 import pytest
 
-import game.constants as game_constants
-import game.services.board as board_service
+import backend.game.constants as game_constants
+import backend.game.services.board as board_service
 
 
 def test_board_init() -> None:
