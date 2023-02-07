@@ -1,0 +1,156 @@
+openapi: 3.0.2
+info:
+  title: Side-Stacker API
+  version: 0.0.1
+servers:
+  - url: http://localhost:8000
+    description: Local server
+tags:
+- description: 'Side Stacker Game API'
+  name: 'side-stacker-api'
+components:
+  schemas:
+    CreateGameSchemaResponse:
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        board:
+          items:
+            items:
+              type: integer
+              default: 0
+            type: array
+          type: array
+      type: object
+    GlobalErrorSchema:
+      properties:
+        code:
+          type: integer
+        description:
+          type: string
+        message:
+          type: string
+      type: object
+    CreateGameSchemaRequest:
+      properties:
+        name:
+          type: string
+      type: object
+paths:
+  /side-stacker/v1/board/:
+    get:
+      x-openapi-router-controller: backend.server.controllers.game
+      operationId: games_list
+      summary: 'List all games'
+      description: 'Create a new game. This will create a new game and return the game_id.'
+      tags:
+      - side-stacker-api
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGameSchemaResponse'
+          description: Game was successfully created
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorSchema'
+          description: Error while creating game
+    post:
+      x-openapi-router-controller: backend.server.controllers.game
+      operationId: create_game
+      summary: 'Create a new game'
+      description: 'Create a new game. This will create a new game and return the game_id.'
+      tags:
+      - side-stacker-api
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGameSchemaRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGameSchemaResponse'
+          description: Game was successfully created
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorSchema'
+          description: Error while creating game
+  /side-stacker/v1/board/{board_uuid}/join/:
+    post:
+      x-openapi-router-controller: backend.server.controllers.game
+      operationId: join_game
+      summary: 'Join a game'
+      description: 'Join a game. This will join a game and return the game_id.'
+      tags:
+      - side-stacker-api
+      parameters:
+      - name: board_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGameSchemaResponse'
+          description: Game was successfully joined
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorSchema'
+          description: Error while joining game
+  /side-stacker/v1/board/{board_uuid}/move/:
+    put:
+      x-openapi-router-controller: backend.server.controllers.game
+      operationId: move
+      summary: 'Move a piece'
+      description: Player moves
+      tags:
+      - side-stacker-api
+      parameters:
+      - name: board_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                direction:
+                  enum:
+                  - left
+                  - right
+                  type: string
+                row_number:
+                  type: integer
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGameSchemaResponse'
+          description: Game was successfully joined
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalErrorSchema'
+          description: Error while joining game

@@ -68,7 +68,7 @@ class StateService:
 
     def has_winner_row(self, row: typing.List[int]) -> bool:
         """
-        Check if there is a winner in a row. 
+        Check if there is a winner in a row.
         """
         score = 0
         previous_marker = game_constants.EMPTY_MARKER

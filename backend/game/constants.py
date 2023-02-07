@@ -1,10 +1,14 @@
-class Direction:
-    RIGHT = "R"
-    LEFT = "L"
+from enum import Enum
+
+
+class Direction(Enum):
+    LEFT = "left"
+    RIGHT = "right"
 
     @classmethod
     def available_directions(cls):
         return [cls.RIGHT, cls.LEFT]
+
 
 EMPTY_MARKER = 0
 
